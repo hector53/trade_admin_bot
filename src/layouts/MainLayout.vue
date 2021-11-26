@@ -35,6 +35,21 @@
                   Home
                 </q-item-section>
               </q-item>
+
+              <q-item clickable 
+              :active="'Ordenes' == $route.name " 
+              v-ripple
+              @click="menuClick('/ordenes')"
+              >
+                <q-item-section avatar>
+                  <q-icon name="home" />
+                </q-item-section>
+                <q-item-section>
+                  Ordenes
+                </q-item-section>
+              </q-item>
+
+
               <q-separator   />
 
               <q-item clickable 

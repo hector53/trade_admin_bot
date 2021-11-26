@@ -5,19 +5,17 @@
       title="Treats"
       :rows="rows"
       :columns="columns"
-      row-key="orderId"
+      row-key="ordId"
     >
     <template v-slot:top>
-        <h1 class="text-h6" style="width:100%">Ordenes abiertas</h1>
-        <p style="width:100%"><b>Capital: </b> {{capital}}   </p>
-        <p style="width:100%"><b>Flotante: </b> {{flotante}}   </p>
+        <h1 class="text-h6" style="width:100%">Ordenes</h1>
     </template>
       <template v-slot:body="props">
         <q-tr :props="props">
-          <q-td key="orderId" :props="props">
-            {{ props.row.orderId }}
+          <q-td key="ordId" :props="props">
+            {{ props.row.ordId }}
           </q-td>
-          <q-td key="fillPrice" :props="props">
+          <q-td key="side" :props="props">
             <q-badge color="green" v-if="props.row.side == 'buy'">
               {{ props.row.side }}
             </q-badge>
@@ -25,25 +23,23 @@
               {{ props.row.side }}
             </q-badge>
           </q-td>
-          <q-td key="fillPrice" :props="props">
-              {{ props.row.fillPrice }}
+          <q-td key="avgPx" :props="props">
+              {{ props.row.avgPx }}
           </q-td>
-          <q-td key="size" :props="props">
-              {{ props.row.size }}
+          <q-td key="accFillSz" :props="props">
+              {{ props.row.accFillSz }}
           </q-td>
-          <q-td key="priceUsd" :props="props">
-              {{ props.row.priceUsd }}
+          <q-td key="notionalUsd" :props="props">
+              {{ props.row.notionalUsd }}
           </q-td>
-          <q-td key="priceBtc" :props="props">
-              {{ props.row.priceBtc }}
+          <q-td key="fee" :props="props">
+              {{ props.row.fee }}
           </q-td>
-          <q-td key="gain" :props="props">
-            <q-badge color="green" v-if="props.row.gain > 0">
-              {{ props.row.gain }}
-            </q-badge>
-            <q-badge color="red" v-else>
-              {{ props.row.gain }}
-            </q-badge>
+          <q-td key="feeCcy" :props="props">
+              {{ props.row.feeCcy }}
+          </q-td>
+           <q-td key="cTime" :props="props">
+              {{ props.row.cTime  }}
           </q-td>
         </q-tr>
       </template>
@@ -63,19 +59,21 @@ import { useStore } from 'vuex'
 
 const columns = [
   {
-    name: 'orderId',
+    name: 'ordId',
     required: true,
     label: 'Order ID',
     align: 'left',
-    field: 'orderId',
+    field: 'ordId',
     sortable: true
   },
   { name: 'side', label: 'Side', field: 'side', sortable: true, align: 'center', },
-  { name: 'fillPrice', align: 'center', label: 'Fill Price', field: 'fillPrice', sortable: true },
-  { name: 'size', label: 'Size', field: 'size', align: 'center', sortable: true },
-  { name: 'priceUsd', label: 'Price USD', field: 'priceUsd', align: 'center',},
-  { name: 'priceBtc', label: 'New Btc Price', field: 'priceBtc' , align: 'center'},
-  { name: 'gain', label: 'Gain', field: 'gain', align: 'center', },
+  { name: 'avgPx', align: 'center', label: 'avgPx', field: 'avgPx', sortable: true },
+  { name: 'accFillSz', label: 'accFillSz', field: 'accFillSz', align: 'center', sortable: true },
+  { name: 'notionalUsd', label: 'Price USD', field: 'notionalUsd', align: 'center', sortable: true},
+  { name: 'fee', label: 'fee', field: 'fee' , align: 'center', sortable: true},
+  { name: 'feeCcy', label: 'feeCcy', field: 'feeCcy' , align: 'center'},
+  { name: 'cTime', label: 'Time', field: 'cTime' , align: 'center', sortable: true},
+
 ]
 export default defineComponent({
   name: "PageIndex",
@@ -83,10 +81,6 @@ setup() {
     Loading.show();
     const showLoading = ref(null)
     const rows = ref(null)
-    const capital = ref(null)
-    const disponible = ref(null)
-    const totalGeneral = ref(null)
-    const flotante = ref(null)
     const $store = useStore()
     const router = useRouter();
     const route = useRoute();
@@ -96,13 +90,9 @@ setup() {
       if(cookieLogin){
           api.defaults.headers.authorization = `Bearer ${cookieLogin}`;
           try {
-          const getOrders = await api.get("get_open_orders");
+          const getOrders = await api.get("get_compras");
           console.log(getOrders)
           rows.value = getOrders.data.orders
-          capital.value =  getOrders.data.capital
-          disponible.value =  getOrders.data.disponible
-          totalGeneral.value =  getOrders.data.totalGeneral
-          flotante.value =  getOrders.data.flotante
           $store.commit("myStore/setLogin", true)
           showLoading.value = false
           Loading.hide()
@@ -122,10 +112,6 @@ setup() {
       columns,
       cookieLogin,
       rows,
-      capital,
-      disponible,
-      totalGeneral,
-      flotante
     };
   },
 
