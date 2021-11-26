@@ -49,6 +49,19 @@
                 </q-item-section>
               </q-item>
 
+              <q-item clickable 
+              :active="'Graficos' == $route.name " 
+              v-ripple
+              @click="menuClick('/graficos')"
+              >
+                <q-item-section avatar>
+                  <q-icon name="home" />
+                </q-item-section>
+                <q-item-section>
+                  Graficos
+                </q-item-section>
+              </q-item>
+
 
               <q-separator   />
 
