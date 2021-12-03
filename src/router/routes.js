@@ -22,6 +22,13 @@ const routes = [
     ]
   },
   {
+    path: '/ordenes_cerradas',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', name: 'ordenesCerradas', component: () => import('pages/ordenesCerradas.vue') }
+    ]
+  },
+  {
     path: '/graficos',
     component: () => import('layouts/MainLayout.vue'),
     children: [

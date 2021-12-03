@@ -37,6 +37,20 @@
           <q-td key="priceBtc" :props="props">
               {{ props.row.priceBtc }}
           </q-td>
+
+          <q-td key="tpTriggerPx" :props="props">
+          {{ props.row.tpTriggerPx }}
+          </q-td>
+          <q-td key="tpOrdPx" :props="props">
+          {{ props.row.tpOrdPx }}
+          </q-td>
+          <q-td key="slTriggerPx" :props="props">
+          {{ props.row.slTriggerPx }}
+          </q-td>
+          <q-td key="slOrdPx" :props="props">
+          {{ props.row.slOrdPx }}
+          </q-td>
+
           <q-td key="gain" :props="props">
             <q-badge color="green" v-if="props.row.gain > 0">
               {{ props.row.gain }}
@@ -44,6 +58,9 @@
             <q-badge color="red" v-else>
               {{ props.row.gain }}
             </q-badge>
+          </q-td>
+           <q-td key="date" :props="props">
+          {{ props.row.date }}
           </q-td>
         </q-tr>
       </template>
@@ -75,7 +92,14 @@ const columns = [
   { name: 'size', label: 'Size', field: 'size', align: 'center', sortable: true },
   { name: 'priceUsd', label: 'Price USD', field: 'priceUsd', align: 'center',},
   { name: 'priceBtc', label: 'New Btc Price', field: 'priceBtc' , align: 'center'},
+
+  { name: 'tpTriggerPx', label: 'tpTriggerPx', field: 'tpTriggerPx' , align: 'center'},
+  { name: 'tpOrdPx', label: 'tpOrdPx', field: 'tpOrdPx' , align: 'center'},
+  { name: 'slTriggerPx', label: 'slTriggerPx', field: 'slTriggerPx' , align: 'center'},
+  { name: 'slOrdPx', label: 'slOrdPx', field: 'slOrdPx' , align: 'center'},
+
   { name: 'gain', label: 'Gain', field: 'gain', align: 'center', },
+  { name: 'date', label: 'date', field: 'date', align: 'center', },
 ]
 export default defineComponent({
   name: "PageIndex",

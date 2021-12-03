@@ -7,7 +7,9 @@ import axios from 'axios'
 // good idea to move this instance creation inside of the
 // "export default () => {}" function below (which runs individually
 // for each client)
-const api = axios.create({ baseURL: 'http://back-trade.jemyxs2xli-zqy3jz1yy6kg.p.runcloud.link/api/' })
+//var baseApiUrl = "http://127.0.0.1:5500/api/"
+var baseApiUrl = 'http://back-trade.jemyxs2xli-zqy3jz1yy6kg.p.runcloud.link/api/'
+const api = axios.create({ baseURL: baseApiUrl })
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api

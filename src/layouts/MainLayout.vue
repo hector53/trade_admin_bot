@@ -32,7 +32,7 @@
                   <q-icon name="home" />
                 </q-item-section>
                 <q-item-section>
-                  Home
+                  Inicio
                 </q-item-section>
               </q-item>
 
@@ -42,10 +42,23 @@
               @click="menuClick('/ordenes')"
               >
                 <q-item-section avatar>
-                  <q-icon name="home" />
+                  <q-icon name="list" />
                 </q-item-section>
                 <q-item-section>
-                  Ordenes
+                  Ordenes Realizadas
+                </q-item-section>
+              </q-item>
+
+              <q-item clickable 
+              :active="'ordenesCerradas' == $route.name " 
+              v-ripple
+              @click="menuClick('/ordenes_cerradas')"
+              >
+                <q-item-section avatar>
+                  <q-icon name="fact_check" />
+                </q-item-section>
+                <q-item-section>
+                  Ordenes Cerradas
                 </q-item-section>
               </q-item>
 
@@ -55,7 +68,7 @@
               @click="menuClick('/graficos')"
               >
                 <q-item-section avatar>
-                  <q-icon name="home" />
+                  <q-icon name="insert_chart_outlined" />
                 </q-item-section>
                 <q-item-section>
                   Graficos
@@ -92,8 +105,11 @@
         color="primary"
         />
         </template>
-        <q-breadcrumbs-el label="Home" icon="home" to="/" />
-        <q-breadcrumbs-el label="Orders" icon="widgets" v-if="$route.name == 'Home'" />
+        <q-breadcrumbs-el label="Home" icon="home" to="/" v-if="$route.name == 'Home'"  />
+        <q-breadcrumbs-el label="Ordenes Realizadas" icon="list" to="/" v-if="$route.name == 'Ordenes'"  />
+        <q-breadcrumbs-el label="Ordenes Cerradas" icon="fact_check" to="/" v-if="$route.name == 'ordenesCerradas'"  />
+        <q-breadcrumbs-el label="Graficos" icon="insert_chart_outlined" to="/" v-if="$route.name == 'Graficos'"  />
+        
       </q-breadcrumbs>
         <router-view></router-view>
       </q-page-container>

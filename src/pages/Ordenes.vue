@@ -29,6 +29,21 @@
           <q-td key="accFillSz" :props="props">
               {{ props.row.accFillSz }}
           </q-td>
+
+            <q-td key="tpTriggerPx" :props="props">
+          {{ props.row.tpTriggerPx }}
+          </q-td>
+          <q-td key="tpOrdPx" :props="props">
+          {{ props.row.tpOrdPx }}
+          </q-td>
+          <q-td key="slTriggerPx" :props="props">
+          {{ props.row.slTriggerPx }}
+          </q-td>
+          <q-td key="slOrdPx" :props="props">
+          {{ props.row.slOrdPx }}
+          </q-td>
+
+          
           <q-td key="notionalUsd" :props="props">
               {{ props.row.notionalUsd }}
           </q-td>
@@ -69,6 +84,12 @@ const columns = [
   { name: 'side', label: 'Side', field: 'side', sortable: true, align: 'center', },
   { name: 'avgPx', align: 'center', label: 'avgPx', field: 'avgPx', sortable: true },
   { name: 'accFillSz', label: 'accFillSz', field: 'accFillSz', align: 'center', sortable: true },
+
+  { name: 'tpTriggerPx', label: 'tpTriggerPx', field: 'tpTriggerPx' , align: 'center'},
+  { name: 'tpOrdPx', label: 'tpOrdPx', field: 'tpOrdPx' , align: 'center'},
+  { name: 'slTriggerPx', label: 'slTriggerPx', field: 'slTriggerPx' , align: 'center'},
+  { name: 'slOrdPx', label: 'slOrdPx', field: 'slOrdPx' , align: 'center'},
+
   { name: 'notionalUsd', label: 'Price USD', field: 'notionalUsd', align: 'center', sortable: true},
   { name: 'fee', label: 'fee', field: 'fee' , align: 'center', sortable: true},
   { name: 'feeCcy', label: 'feeCcy', field: 'feeCcy' , align: 'center'},
