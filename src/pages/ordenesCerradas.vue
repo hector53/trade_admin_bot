@@ -5,9 +5,12 @@
       title="Ordenes Cerradas"
       :rows="rows"
       :columns="columns"
+      :rows-per-page-options="[10]"
     >
     <template v-slot:top>
         <h1 class="text-h6" style="width:100%">Ordenes Cerradas</h1>
+        <p style="width:100%"><b>Ordenes Ganadas: </b> {{ordenesGanadas}} ----Total: {{totalOrdenesGanadas}}  </p>
+        <p style="width:100%"><b>Ordenes Perdidas: </b> {{ordenesPerdidas}}  ----Total: {{totalOrdenesPerdidas}} </p>
     </template>
       <template v-slot:body="props">
         <q-tr :props="props">
@@ -75,6 +78,10 @@ setup() {
     Loading.show();
     const showLoading = ref(null)
     const rows = ref(null)
+    const ordenesGanadas = ref(null)
+    const ordenesPerdidas = ref(null)
+    const totalOrdenesGanadas = ref(null)
+    const totalOrdenesPerdidas = ref(null)
     const $store = useStore()
     const router = useRouter();
     const route = useRoute();
@@ -87,6 +94,10 @@ setup() {
           const getOrders = await api.get("get_close_orders");
           console.log(getOrders)
           rows.value = getOrders.data.orders
+          ordenesGanadas.value = getOrders.data.ordenesGanadas
+          ordenesPerdidas.value = getOrders.data.ordenesPerdidas
+          totalOrdenesGanadas.value = getOrders.data.totalOrdenesGanadas
+          totalOrdenesPerdidas.value = getOrders.data.totalOrdenesPerdidas
           $store.commit("myStore/setLogin", true)
           showLoading.value = false
           Loading.hide()
@@ -105,7 +116,7 @@ setup() {
       showLoading,
       columns,
       cookieLogin,
-      rows,
+      rows, ordenesPerdidas, ordenesGanadas, totalOrdenesPerdidas, totalOrdenesGanadas
     };
   },
 

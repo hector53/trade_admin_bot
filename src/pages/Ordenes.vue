@@ -5,6 +5,7 @@
       title="Treats"
       :rows="rows"
       :columns="columns"
+      :rows-per-page-options="[10]"
       row-key="ordId"
     >
     <template v-slot:top>

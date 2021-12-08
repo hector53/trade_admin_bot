@@ -2,7 +2,7 @@
   <div>
    <div class="row">
       <div class="col">
-       <h5>Flotante</h5>
+       <h5>Flotante -------------Variacion: {{variacionFlotante}}</h5>
     <apexchart v-if="showLoading == false"
       width="600"
       type="line"
@@ -11,7 +11,7 @@
     ></apexchart>
       </div>
       <div class="col">
-         <h5>Capital</h5>
+         <h5>Capital -------------Variacion: {{variacionCapital}}</h5>
     <apexchart v-if="showLoading == false"
       width="600"
       type="line"
@@ -43,6 +43,8 @@ export default {
     const seriesF = ref(null);
      const optionsC = ref(null);
     const seriesC = ref(null);
+    const variacionCapital = ref(0);
+    const variacionFlotante = ref(0);
     const $store = useStore();
     const router = useRouter();
     const route = useRoute();
@@ -92,7 +94,8 @@ export default {
               data: getOrders.data.arrayValuesCapital,
             },
           ];
-
+          variacionCapital.value = getOrders.data.variacionCapital
+          variacionFlotante.value = getOrders.data.variacionFlotante
           $store.commit("myStore/setLogin", true);
           showLoading.value = false;
           Loading.hide();
@@ -114,7 +117,7 @@ export default {
       seriesF,
       optionsF,
       optionsC, 
-      seriesC
+      seriesC, variacionCapital, variacionFlotante
     };
   },
 };
