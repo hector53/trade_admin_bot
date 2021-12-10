@@ -16,6 +16,23 @@
         </q-card-actions>
       </q-card>
     </q-dialog>
+
+    <q-dialog v-model="dialogPanic" persistent>
+      <q-card style="min-width: 350px">
+        <q-card-section>
+          <div class="text-h6">Ingrese contraseña secreta</div>
+        </q-card-section>
+
+        <q-card-section class="q-pt-none">
+          <q-input dense v-model="passwordSecret" type="password" autofocus @keyup.enter="sendPanicBtn" />
+        </q-card-section>
+
+        <q-card-actions align="right" class="text-primary">
+          <q-btn flat label="Cancel" v-close-popup />
+          <q-btn flat label="Enviar" @click="sendPanicBtn" v-close-popup />
+        </q-card-actions>
+      </q-card>
+    </q-dialog>
         </div>
         
     <q-table
@@ -117,7 +134,6 @@ import { useRouter, useRoute } from "vue-router";
 import { api } from "boot/axios";
 import { ref } from "vue";
 import { useStore } from 'vuex'
-
 const columns = [
   {
     name: 'orderId',
@@ -197,27 +213,44 @@ setup() {
       totalGeneral,
       flotante, costoOportunidad,
        confirm: ref(false),
+       passwordSecret: ref(null), 
+       dialogPanic: ref(false), 
+       triggerNegative (msj) {
+        $q.notify({
+          type: 'negative',
+          message: msj
+        })
+      },
     };
   },
   methods: {
- async   panicBtn(){ 
+   panicBtn(){ 
    this.confirm = false
-   Loading.show();
+   this.dialogPanic = true
+    this.passwordSecret = null
+    }, 
+
+    async sendPanicBtn(){
+      this.dialogPanic = false
+      Loading.show();
    console.log("panic button")
         try {
           const getOrders = await api.post("close_open_orders_btn_panic",{
-            pass: 123456
+            pass: this.passwordSecret
           });
           console.log(getOrders)
           Loading.hide()
           alert("todo ha cerrado con exito")
-          location.reload
+          location.reload()
           
           } catch (e) {
           console.log("error ", e);
+     
+          this.triggerNegative("Contraseña incorrecta")
           Loading.hide()
           }
     }
+
   },
 
  
